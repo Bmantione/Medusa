@@ -20,7 +20,7 @@ export default function NewsList() {
       {news.length === 0 ? (
         <div>loading...</div>
       ) : (
-          <div>
+          <div style={{overflowX:"scroll"}}>
             <List divided selection verticalAlign='middle'>
               {news.map(n => (
                 <List.Item key={n.url}>

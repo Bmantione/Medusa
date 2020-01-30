@@ -66,31 +66,31 @@ class Weather extends React.Component {
                 <br/>
                 <List>
                     <List.Item>
-                        <Image src={require("./css/wi-thermometer.png")} />
+                        <Image src={require("../assets/images/wi-thermometer.png")} />
                         <List.Content>Température actuel : {this.state.temp.actuel}</List.Content>
-                        <Image src={require("./css/wi-celsius.png")} />
+                        <Image src={require("../assets/images/wi-celsius.png")} />
                     </List.Item>
                     <List.Item>
-                        <Image src={require("./css/wi-thermometer.png")} />
+                        <Image src={require("../assets/images/wi-thermometer.png")} />
                         <List.Content>Température minimum : {this.state.temp.min}</List.Content>
-                        <Image src={require("./css/wi-celsius.png")} />
+                        <Image src={require("../assets/images/wi-celsius.png")} />
                     </List.Item>
                     <List.Item>
-                        <Image src={require("./css/wi-thermometer.png")} />
+                        <Image src={require("../assets/images/wi-thermometer.png")} />
                         <List.Content>Température maximum : {this.state.temp.max}</List.Content>
-                        <Image src={require("./css/wi-celsius.png")} />
+                        <Image src={require("../assets/images/wi-celsius.png")} />
                     </List.Item>
                     <List.Item>
-                        <Image src={require("./css/wi-sunrise.png")} />
+                        <Image src={require("../assets/images/wi-sunrise.png")} />
                         <List.Content>levé du soleil : {this.state.sunrise}</List.Content>
                     </List.Item>
                     <List.Item>
-                        <Image src={require("./css/wi-sunset.png")} />
+                        <Image src={require("../assets/images/wi-sunset.png")} />
                         <List.Content>couché du soleil : {this.state.sunset}</List.Content>
                     </List.Item>
                     <List.Item>
-                        <Image src={require("./css/wi-humidity.png")} />
-                        <List.Content>Humidité : {this.state.sunset}</List.Content>
+                        <Image src={require("../assets/images/wi-humidity.png")} />
+                        <List.Content>Humidité : {this.state.humidity}</List.Content>
                     </List.Item>
                 </List>
                 <br/>

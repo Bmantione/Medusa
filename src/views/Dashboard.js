@@ -1,10 +1,30 @@
 import React from 'react';
-import './App.css';
-import Clock from './composant/Clock.js';
-//import Weather from "./composant/Weather";
-import Twitter from './composant/News';
+import Weather from "./Weather";
+import Clock from "./Clock";
+import "../assets/css/dashboard.css";
+import News from "./News";
 
-class App extends React.Component {
+
+class Dashboard extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {seconds: 0};
+    }
+
+    tick() {
+        this.setState(prevState => ({
+            seconds: prevState.seconds + 1
+        }));
+    }
+
+    componentDidMount() {
+        this.interval = setInterval(() => this.tick(), 1000);
+    }
+
+    componentWillUnmount() {
+        clearInterval(this.interval);
+    }
+
     render() {
         const seg_size = Math.floor(document.body.offsetHeight / 2);
         const segment_style = {
@@ -16,7 +36,7 @@ class App extends React.Component {
         };
 
         return (
-            <div className="App">
+            <div>
                 <div className="ui grid">
                     <div className="eight wide column" style={bloc_style}>
                         <div className="ui blue inverted segment" style={segment_style}>
@@ -27,12 +47,12 @@ class App extends React.Component {
                     </div>
                     <div className="eight wide column" style={bloc_style}>
                         <div className="ui red inverted segment" style={segment_style}>
-                            <Twitter/>
+                            <News/>
                         </div>
                     </div>
                     <div className="eight wide column" style={bloc_style}>
                         <div className="ui green inverted segment" style={segment_style}>
-                            <a href="./#">
+                            <a href="/timer">
                                 <img src="./icon/min.png" className="ui small centered image" style={{'height':'100%','width':'auto'}} alt="" />
                             </a>
                         </div>
@@ -48,4 +68,4 @@ class App extends React.Component {
     }
 }
 
-export default App;
+export default Dashboard;
