@@ -1,7 +1,8 @@
 import React from 'react';
 import './App.css';
 import Clock from './composant/Clock.js';
-import Weather from "./composant/Weather";
+//import Weather from "./composant/Weather";
+import Twitter from './composant/News';
 
 class App extends React.Component {
     render() {
@@ -26,7 +27,7 @@ class App extends React.Component {
                     </div>
                     <div className="eight wide column" style={bloc_style}>
                         <div className="ui red inverted segment" style={segment_style}>
-                            <Weather/>
+                            <Twitter/>
                         </div>
                     </div>
                     <div className="eight wide column" style={bloc_style}>
