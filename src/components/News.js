@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import moment from "react-moment";
 import { List, Image } from "semantic-ui-react";
 import Moment from "react-moment";
 
@@ -28,7 +27,7 @@ export default function NewsList() {
                   <List.Content>
                     <List.Header>{n.title}</List.Header>
                     <List.Description>
-                      <b><Moment date={n.dateToPublish}  format="HH:mm:ss DD/MM/YYYY"/></b>
+                      <b><Moment date={n.publishedAt}  format="HH:mm:ss DD/MM/YYYY"/></b>
                       <br/>
                       {n.description + '...'}
                     </List.Description>

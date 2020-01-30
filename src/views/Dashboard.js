@@ -1,8 +1,8 @@
 import React from 'react';
-import Weather from "./Weather";
-import Clock from "./Clock";
+//import Weather from "../components/Weather";
+import Clock from "../components/Clock";
 import "../assets/css/dashboard.css";
-import News from "./News";
+import News from "../components/News";
 
 
 class Dashboard extends React.Component {

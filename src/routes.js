@@ -1,4 +1,4 @@
-import Timer from "./views/Timer";
+import Timer from "./components/Timer";
 import Dashboard from "./views/Dashboard";
 
 const dashBoardRoutes = [
