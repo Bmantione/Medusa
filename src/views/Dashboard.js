@@ -1,6 +1,6 @@
 import React from 'react';
-//import Weather from "../components/Weather";
 import Clock from "../components/Clock";
+import Weather from "../components/Weather";
 import "../assets/css/dashboard.css";
 import News from "../components/News";
 
@@ -28,7 +28,8 @@ class Dashboard extends React.Component {
     render() {
         const seg_size = Math.floor(document.body.offsetHeight / 2);
         const segment_style = {
-            height: seg_size + 'px'
+            height: seg_size + 'px',
+            overflow: "auto"
         };
         const bloc_style = {
             padding: '1px',
@@ -40,9 +41,10 @@ class Dashboard extends React.Component {
                 <div className="ui grid">
                     <div className="eight wide column" style={bloc_style}>
                         <div className="ui blue inverted segment" style={segment_style}>
-                            <a href="./#">
+                            <Weather/>
+                            {/*<a href="./#">
                                 <img src="./icon/radio.png" className="ui small centered image" style={{'height':'100%','width':'auto'}} alt="" />
-                            </a>
+                            </a>*/}
                         </div>
                     </div>
                     <div className="eight wide column" style={bloc_style}>
