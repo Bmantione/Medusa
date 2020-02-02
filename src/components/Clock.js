@@ -1,5 +1,6 @@
 import React from 'react';
-
+import './Clock.component.css'
+import { Header } from 'semantic-ui-react';
 class Clock extends React.Component {
     constructor(props) {
         super(props);
@@ -38,9 +39,13 @@ class Clock extends React.Component {
         let date_val = weekday + ' ' + day + ' ' + month + ' ' + year;
 
         return (
-            <div style={{'textAlign':'center', 'display':'inline-grid'}}>
-                <span className='hour' style={{'fontSize':'9vw', 'marginBottom':'0.6em'}}>{hour_val}</span>
-                <span className='date' style={{'fontSize':'4vw', }}>{date_val}</span>
+            <div className="clock">
+                <Header as='h1' className='hour' inverted textAlign='center'>
+                    {hour_val}
+                    <Header.Subheader className='date'>
+                        {date_val}
+                    </Header.Subheader>
+                </Header>
             </div>
         );
     }

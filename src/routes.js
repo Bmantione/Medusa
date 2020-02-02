@@ -1,5 +1,6 @@
 import Timer from "./components/Timer";
 import Dashboard from "./views/Dashboard";
+import AdminPage from "./views/AdminPage";
 
 const dashBoardRoutes = [
     {
@@ -11,6 +12,11 @@ const dashBoardRoutes = [
         path: "/timer",
         name: "Timer",
         component: Timer
+    },
+    {
+        path: "/admin",
+        name: "AdminPage",
+        component: AdminPage
     },
 ];
 

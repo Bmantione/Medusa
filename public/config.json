@@ -1,0 +1,50 @@
+{
+    "DashboardConfig": {
+        "TopLeft": "Weather",
+        "TopRight": "News",
+        "BottomRight": "Clock",
+        "BottomLeft": "Timer"
+    },
+    "WidgetList": {
+        "Weather": {
+            "WidgetConfig": {
+                "Location": "Rennes",
+                "Temperature": "Celcius"
+            }
+        },
+        "Clock": {
+            "WidgetConfig": {
+                "TimeZone": "GMT+01",
+                "Format": "HH:mm:ss DD:MM:YYYY"
+            }
+        },
+        "News": {
+            "WidgetConfig": {
+                "Source": "https://newsapi.org/v2/top-headlines?sources=google-news-fr&apiKey=7485e20aca044c7fbd9d9694f47bbadc",
+                "NewsNumber": "-1"
+            }
+        },
+        "Timer": {
+            "WidgetConfig": {
+                "Times": [
+                    5,
+                    10,
+                    15
+                ]
+            }
+        },
+        "Radio": {
+            "WidgetConfig": {
+                "Source": [
+                    {
+                        "FunRadio": {
+                            "Source": "http://ddd.fr",
+                            "Img": "funradioLogo",
+                            "Active": true
+                        }
+                    }
+                ]
+            }
+        }
+    }
+}

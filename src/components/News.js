@@ -1,42 +1,53 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import axios from "axios";
-import { List, Image } from "semantic-ui-react";
+import { List, Image, Loader } from "semantic-ui-react";
 import Moment from "react-moment";
+import './News.component.css'
 
-export default function NewsList() {
-  const [news, setNews] = useState([]);
+class News extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { news: [] }
+  }
 
-  useEffect(() => {
-    axios.get("https://newsapi.org/v2/top-headlines?sources=google-news-fr&apiKey=7485e20aca044c7fbd9d9694f47bbadc").then(res => {
-      console.log(res);
+  componentDidMount() {
+    axios.get(this.props.Source).then(res => {
       const news = res.data.articles;
-      setNews(news);
+      this.setState({ news: news });
     });
-  }, []);
+  };
 
-  return (
-    <>
-      {news.length === 0 ? (
-        <div>loading...</div>
-      ) : (
-          <div style={{overflowX:"scroll"}}>
-            <List divided selection verticalAlign='middle'>
-              {news.map(n => (
-                <List.Item key={n.url}>
-                  <Image src={n.urlToImage} verticalAlign='middle' size='tiny' floated='left'/>
-                  <List.Content>
-                    <List.Header>{n.title}</List.Header>
-                    <List.Description>
-                      <b><Moment date={n.publishedAt}  format="HH:mm:ss DD/MM/YYYY"/></b>
-                      <br/>
-                      {n.description + '...'}
-                    </List.Description>
-                  </List.Content>
-                </List.Item>
-              ))}
-            </List>
-          </div>
-        )}
-    </>
-  )
-};
+  renderList() {
+    return this.state.news.map(n => {
+      return (
+        <List.Item key={n.url}>
+          <Image src={n.urlToImage} verticalAlign='middle' size='tiny' floated='left' />
+          <List.Content>
+            <List.Header>{n.title}</List.Header>
+            <List.Description>
+              <b><Moment date={n.publishedAt} format="HH:mm:ss DD/MM/YYYY" /></b>
+              <br />
+              {n.description + '...'}
+            </List.Description>
+          </List.Content>
+        </List.Item>
+      )
+    })
+  }
+
+  render() {
+    if (this.state.news.length === 0) {
+      return <Loader active />
+    }
+
+    return (
+      <div className='news'>
+        <List divided selection verticalAlign='middle'>
+          {this.renderList()}
+        </List>
+      </div>
+    )
+  }
+}
+
+export default News

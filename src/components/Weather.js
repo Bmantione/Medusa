@@ -22,11 +22,10 @@ class Weather extends React.Component {
     componentDidMount() {
         //https://api.openweathermap.org/data/2.5/weather?q=rennes&APPID=fbea750d7d1154542724db10d81cfd9e&lang=fr
         // Api pour la ville de rennes
-        fetch("https://api.openweathermap.org/data/2.5/weather?q=Rennes&APPID=fbea750d7d1154542724db10d81cfd9e&lang=fr")
+        fetch("https://api.openweathermap.org/data/2.5/weather?q=" + this.props.Location + "&APPID=fbea750d7d1154542724db10d81cfd9e&lang=fr")
             .then(res => res.json())
             .then(
                 (result) => {
-                    console.log(result);
                     this.setState({
                         icon: result.weather[0].icon,
                         description: result.weather[0].description,
@@ -50,7 +49,6 @@ class Weather extends React.Component {
     }
 
     format(date) {
-        console.log(date);
         let d = new Date(date * 1000);
         return d.getHours() + "H" + d.getMinutes();
     }
@@ -59,7 +57,7 @@ class Weather extends React.Component {
         let icon_link = "https://openweathermap.org/img/wn/" + this.state.icon + "@2x.png";
 
         return (
-            <div>
+            <div className="Weather">
                 <img src={icon_link} alt="" title={this.state.description}/>
                 <br/>
                 <h3>{this.state.name}</h3>
