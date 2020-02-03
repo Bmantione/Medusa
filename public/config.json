@@ -9,7 +9,7 @@
         "Weather": {
             "WidgetConfig": {
                 "Location": "Rennes",
-                "Temperature": "Celcius"
+                "Temperature": "Celsius"
             }
         },
         "Clock": {

@@ -25,7 +25,7 @@ class News extends React.Component {
           <List.Content>
             <List.Header>{n.title}</List.Header>
             <List.Description>
-              <b><Moment date={n.publishedAt} format="HH:mm:ss DD/MM/YYYY" /></b>
+              <b><Moment date={n.publishedAt} format="HH:mm DD/MM/YYYY" /></b>
               <br />
               {n.description + '...'}
             </List.Description>

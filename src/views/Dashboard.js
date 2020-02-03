@@ -29,7 +29,7 @@ class Dashboard extends React.Component {
     }
 
     render() {
-        const seg_size = Math.floor(document.body.offsetHeight / 2);
+        const seg_size = Math.floor(document.body.offsetHeight / 2) - 15;
         const segment_style = {
             height: seg_size + 'px',
             overflow: "auto"
@@ -62,11 +62,12 @@ class Dashboard extends React.Component {
                                 {RenderComponent(this.state.config.DashboardConfig.BottomRight, this.state.config.WidgetList)}
                             </div>
                         </div>
+                        <div className="sixteen wide column" style={{padding: '1px'}}>
+                        <Button icon labelPosition='left' fluid as={Link} to="/admin">
+                            <Icon name='cogs' />Configuration
+                        </Button>
+                        </div>
                     </div>
-                    <Button icon labelPosition='left' fluid as={Link} to="/admin">
-                        <Icon name='cogs' />
-                        Configuration
-                </Button>
                 </div>
             );
         } else {
