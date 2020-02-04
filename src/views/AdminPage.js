@@ -52,14 +52,7 @@ class AdminPage extends React.Component {
         config.DashboardConfig.BottomLeft = BottomLeft;
         config.DashboardConfig.BottomRight = BottomRight;
 
-        const formData = new FormData();
-        formData.append('config', config)
-        const requestConfig = {
-            headers: {
-                'content-type': 'multipart/form-data'
-            }
-        }
-        Axios.post("config.json", config, requestConfig).then(res => {
+        Axios.post("/api/save", config).then(res => {
             console.log("Save success")
         })
     }
