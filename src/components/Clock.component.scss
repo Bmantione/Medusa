@@ -1,0 +1,12 @@
+.clock {
+    .ui.header {
+        &.hour {
+            font-size: 9vw;
+            margin-bottom: 0.6em;
+            margin-top: 0.1em !important;
+        }   
+        div.date {
+            font-size:4vw;
+        } 
+    }
+}

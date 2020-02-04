@@ -1,5 +1,5 @@
 import React from 'react';
-import './Clock.component.css'
+import './Clock.component.scss'
 import { Header } from 'semantic-ui-react';
 class Clock extends React.Component {
     constructor(props) {
