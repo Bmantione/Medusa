@@ -1,28 +1,14 @@
 import React from 'react';
+import './Timer.component.css';
+import minuteur from '../assets/icon/min.png';
 
 class Timer extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {seconds: 0};
-    }
-
-    tick() {
-        this.setState(prevState => ({
-            seconds: prevState.seconds + 1
-        }));
-    }
-
-    componentDidMount() {
-        this.interval = setInterval(() => this.tick(), 1000);
-    }
-
-    componentWillUnmount() {
-        clearInterval(this.interval);
-    }
-
     render() {
         return (
             <div>
+                <a href="/timer">
+                    <img src={minuteur} className="ui small centered image" style={{'height':'auto','width':'auto'}} alt="" />
+                </a>
             </div>
         );
     }

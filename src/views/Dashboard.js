@@ -1,32 +1,35 @@
 import React from 'react';
-import Clock from "../components/Clock";
-import Weather from "../components/Weather";
 import "../assets/css/dashboard.css";
-import News from "../components/News";
+import { Button, Icon, Loader } from 'semantic-ui-react';
+import { Link } from 'react-router-dom';
+import axios from 'axios';
+import RenderComponent from '../service/renderComponent';
 
 
 class Dashboard extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {seconds: 0};
-    }
-
-    tick() {
-        this.setState(prevState => ({
-            seconds: prevState.seconds + 1
-        }));
+        this.state = { config: {} };
     }
 
     componentDidMount() {
-        this.interval = setInterval(() => this.tick(), 1000);
+        axios.get("config.json")
+            .then(res => {
+                this.setState({ config: res.data })
+            })
     }
 
-    componentWillUnmount() {
-        clearInterval(this.interval);
+    renderGrid() {
+        var { config } = this.state;
+
+        config.DashboardConfig.map(val => {
+            return console.log(val)
+
+        })
     }
 
     render() {
-        const seg_size = Math.floor(document.body.offsetHeight / 2);
+        const seg_size = Math.floor(document.body.offsetHeight / 2) - 15;
         const segment_style = {
             height: seg_size + 'px',
             overflow: "auto"
@@ -35,38 +38,41 @@ class Dashboard extends React.Component {
             padding: '1px',
             marging: '2px'
         };
-
-        return (
-            <div>
-                <div className="ui grid">
-                    <div className="eight wide column" style={bloc_style}>
-                        <div className="ui blue inverted segment" style={segment_style}>
-                            <Weather/>
-                            {/*<a href="./#">
-                                <img src="./icon/radio.png" className="ui small centered image" style={{'height':'100%','width':'auto'}} alt="" />
-                            </a>*/}
+        if (this.state.config.DashboardConfig !== undefined) {
+            return (
+                <div>
+                    <div className="ui grid">
+                        <div className="eight wide column" style={bloc_style}>
+                            <div className="ui blue inverted segment" style={segment_style}>
+                                {RenderComponent(this.state.config.DashboardConfig.TopLeft, this.state.config.WidgetList)}
+                            </div>
                         </div>
-                    </div>
-                    <div className="eight wide column" style={bloc_style}>
-                        <div className="ui red inverted segment" style={segment_style}>
-                            <News/>
+                        <div className="eight wide column" style={bloc_style}>
+                            <div className="ui red inverted segment" style={segment_style}>
+                                {RenderComponent(this.state.config.DashboardConfig.TopRight, this.state.config.WidgetList)}
+                            </div>
                         </div>
-                    </div>
-                    <div className="eight wide column" style={bloc_style}>
-                        <div className="ui green inverted segment" style={segment_style}>
-                            <a href="/timer">
-                                <img src="./icon/min.png" className="ui small centered image" style={{'height':'100%','width':'auto'}} alt="" />
-                            </a>
+                        <div className="eight wide column" style={bloc_style}>
+                            <div className="ui green inverted segment" style={segment_style}>
+                                {RenderComponent(this.state.config.DashboardConfig.BottomLeft, this.state.config.WidgetList)}
+                            </div>
                         </div>
-                    </div>
-                    <div className="eight wide column" style={bloc_style}>
-                        <div className="ui black inverted segment" style={{'height': seg_size + 'px', 'display': 'flex', 'flexDirection': 'column', 'justifyContent': 'center'}}>
-                            <Clock/>
+                        <div className="eight wide column" style={bloc_style}>
+                            <div className="ui black inverted segment" style={segment_style}>
+                                {RenderComponent(this.state.config.DashboardConfig.BottomRight, this.state.config.WidgetList)}
+                            </div>
+                        </div>
+                        <div className="sixteen wide column" style={{padding: '1px'}}>
+                        <Button icon labelPosition='left' fluid as={Link} to="/admin">
+                            <Icon name='cogs' />Configuration
+                        </Button>
                         </div>
                     </div>
                 </div>
-            </div>
-        );
+            );
+        } else {
+            return <Loader active />
+        }
     }
 }
 

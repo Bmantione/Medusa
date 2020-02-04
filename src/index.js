@@ -3,22 +3,22 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import * as serviceWorker from './serviceWorker';
 import 'semantic-ui-less/semantic.less';
-import { Router, Route, Switch, Redirect } from "react-router-dom";
+import {Router, Route, Switch} from "react-router-dom";
 import SwitchRoute from "./SwitchRoutes";
-import { createBrowserHistory } from "history";
+import {createBrowserHistory} from "history";
+import RadioPage from "./views/RadioPage";
+import TimerPage from "./views/TimerPage";
 
 const hist = createBrowserHistory();
 
 ReactDOM.render(
     <Router history={hist}>
-            <Switch>
-                    <Route path="/" component={SwitchRoute} />
-                    <Route render={() => <Redirect from="/" to="/dashboard" />} />
-            </Switch>
+        <Switch>
+            <Route path="/radio" component={RadioPage}/>
+            <Route path="/timer" component={TimerPage}/>
+            <Route path="/" component={SwitchRoute}/>
+        </Switch>
     </Router>
-        , document.getElementById('root'));
+    , document.getElementById('root'));
 
-// If you want your app to work offline and load faster, you can change
-// unregister() to register() below. Note this comes with some pitfalls.
-// Learn more about service workers: https://bit.ly/CRA-PWA
 serviceWorker.unregister();
