@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Icon, Container, Header, Form } from 'semantic-ui-react';
+import { Button, Icon, Container, Header, Form, Divider } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
 import Axios from 'axios';
 import './adminPage.views.css'
@@ -7,11 +7,11 @@ import './adminPage.views.css'
 class AdminPage extends React.Component {
     constructor(props) {
         super(props);
-        this.state = { 
-            config: {}, 
-            TopRight: "", 
-            TopLeft: "", 
-            BottomLeft: "", 
+        this.state = {
+            config: {},
+            TopRight: "",
+            TopLeft: "",
+            BottomLeft: "",
             BottomRight: "",
         };
     }
@@ -21,7 +21,7 @@ class AdminPage extends React.Component {
         Axios.get("config.json")
             .then(res => {
                 var config = res.data
-                this.setState({ 
+                this.setState({
                     config: config,
                     TopLeft: config.DashboardConfig.TopLeft,
                     TopRight: config.DashboardConfig.TopRight,
@@ -43,10 +43,50 @@ class AdminPage extends React.Component {
         return options
     }
 
+    generateFormParam = (formField, key, config) => {
+        formField.push(
+            <React.Fragment>
+                <Divider horizontal>{key} Config</Divider>
+                <br />
+            </React.Fragment>
+        )
+        for (var [param, value] of Object.entries(config.WidgetList[key].WidgetConfig)) {
+            formField.push(
+                <Form.Input label={param} value={value} fluid width={8} />
+            )
+        }
+
+        return formField;
+    }
+
+    renderFormParam() {
+        const { BottomLeft, BottomRight, TopLeft, TopRight, config } = this.state;
+        var formField = []
+        for (var key in config.WidgetList) {
+            switch (key) {
+                case BottomLeft:
+                    formField = this.generateFormParam(formField, key, config)
+                    break;
+                case BottomRight:
+                    formField = this.generateFormParam(formField, key, config)
+                    break;
+                case TopLeft:
+                    formField = this.generateFormParam(formField, key, config)
+                    break;
+                case TopRight:
+                    formField = this.generateFormParam(formField, key, config)
+                    break;
+                default:
+            }
+           
+        }
+        return formField;
+    }
+
     handleChange = (e, { name, value }) => this.setState({ [name]: value })
 
     updateJson = () => {
-        const {BottomLeft, BottomRight, TopLeft, TopRight, config} = this.state;
+        const { BottomLeft, BottomRight, TopLeft, TopRight, config } = this.state;
         config.DashboardConfig.TopLeft = TopLeft;
         config.DashboardConfig.TopRight = TopRight;
         config.DashboardConfig.BottomLeft = BottomLeft;
@@ -64,23 +104,31 @@ class AdminPage extends React.Component {
     renderFormPosition() {
         const { BottomLeft, BottomRight, TopLeft, TopRight } = this.state;
         if (this.state.config.DashboardConfig !== undefined) {
-            console.log(this.state.config)
             return (
-                <Form onSubmit={this.updateJson}>
-                    <Form.Group>
-                        <Form.Select name='TopLeft' label="Position Haut Gauche" width={8} defaultValue={TopLeft} options={this.createOptionList()} onChange={this.handleChange}/>
-                        <Form.Select name='TopRight' label="Position Haut Droite" width={8} defaultValue={TopRight} options={this.createOptionList()} onChange={this.handleChange}/>
-                    </Form.Group>
-                    <Form.Group>
-                        <Form.Select name='BottomLeft' label="Position Bas Gauche" width={8} defaultValue={BottomLeft} options={this.createOptionList()} onChange={this.handleChange}/>
-                        <Form.Select name='BottomRight' label="Position Bas Droite" width={8} defaultValue={BottomRight} options={this.createOptionList()} onChange={this.handleChange}/>
-                    </Form.Group>
+                <div>
+                    <Form onSubmit={this.updateJson}>
+                        <Form.Group>
+                            <Form.Select name='TopLeft' label="Position Haut Gauche" width={8} defaultValue={TopLeft} options={this.createOptionList()} onChange={this.handleChange} />
+                            <Form.Select name='TopRight' label="Position Haut Droite" width={8} defaultValue={TopRight} options={this.createOptionList()} onChange={this.handleChange} />
+                        </Form.Group>
+                        <Form.Group>
+                        </Form.Group>
+                        <Form.Group>
+                            <Form.Select name='BottomLeft' label="Position Bas Gauche" width={8} defaultValue={BottomLeft} options={this.createOptionList()} onChange={this.handleChange} />
+                            <Form.Select name='BottomRight' label="Position Bas Droite" width={8} defaultValue={BottomRight} options={this.createOptionList()} onChange={this.handleChange} />
+                        </Form.Group>
+                        <Form.Group>
+                            {this.renderFormParam()}
+                        </Form.Group>
+                    </Form>
+                    
+                   
                     <Button.Group floated='right'>
                         <Button>Annuler</Button>
                         <Button.Or text='ou' />
                         <Button positive type='submit' onClick={this.handleSave}>Valider</Button>
                     </Button.Group>
-                </Form>
+                </div>
             );
         }
     }
