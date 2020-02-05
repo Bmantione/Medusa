@@ -1,18 +1,18 @@
 {
     "DashboardConfig": {
-        "TopLeft": "Weather",
+        "TopLeft": "Météo",
         "TopRight": "News",
-        "BottomRight": "Clock",
+        "BottomRight": "Horloge",
         "BottomLeft": "Radio"
     },
     "WidgetList": {
-        "Weather": {
+        "Météo": {
             "WidgetConfig": {
                 "Location": "Rennes",
                 "Temperature": "Celsius"
             }
         },
-        "Clock": {
+        "Horloge": {
             "WidgetConfig": {
                 "TimeZone": "GMT+01",
                 "Format": "HH:mm:ss DD:MM:YYYY"
