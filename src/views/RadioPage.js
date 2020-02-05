@@ -5,7 +5,6 @@ import Axios from "axios";
 import AudioPlayer from "react-h5-audio-player";
 import '../assets/css/player.scss';
 
-
 class RadioPage extends React.Component {
 
     constructor(props) {
@@ -74,7 +73,7 @@ class RadioPage extends React.Component {
                         <div className="ui grid">
                             <div className="four column row">
                                 <div className="left floated column">Radio page</div>
-                                <div className="right floated column">{hour_val}</div>
+                                <div className="right floated column" style={{textAlign:"right"}}>{hour_val}</div>
                             </div>
                         </div>
                     </Header>
