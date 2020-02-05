@@ -13,6 +13,13 @@ class AdminPage extends React.Component {
             TopLeft: "",
             BottomLeft: "",
             BottomRight: "",
+            Location: "",
+            Temperature: "",
+            TimeZone: "",
+            Format: "",
+            Source: "",
+            NewsNumber: "",
+            Times: "",
         };
     }
 
@@ -26,7 +33,14 @@ class AdminPage extends React.Component {
                     TopLeft: config.DashboardConfig.TopLeft,
                     TopRight: config.DashboardConfig.TopRight,
                     BottomLeft: config.DashboardConfig.BottomLeft,
-                    BottomRight: config.DashboardConfig.BottomRight
+                    BottomRight: config.DashboardConfig.BottomRight,
+                    Location: config.WidgetList["Météo"].WidgetConfig.Location,
+                    Temperature: config.WidgetList["Météo"].WidgetConfig.Temperature,
+                    TimeZone: config.WidgetList["Horloge"].WidgetConfig.TimeZone,
+                    Format: config.WidgetList["Horloge"].WidgetConfig.Format,
+                    Source: config.WidgetList["News"].WidgetConfig.Source,
+                    NewsNumber: config.WidgetList["News"].WidgetConfig.NewsNumber,
+                    Times: config.WidgetList["Timer"].WidgetConfig.Times,
                 })
             })
     }
@@ -43,31 +57,61 @@ class AdminPage extends React.Component {
         return options
     }
 
-    generateFormParam = (key, config) => {
-        
-        if (key !== "Radio") {
-            var formField = [];
-            for (var [param, value] of Object.entries(config.WidgetList[key].WidgetConfig)) {
-                formField.push(<Form.Input label={param} value={value} />);
+    generateFormParam = (config) => {
+        var formField = [];
+        for (var key in config.WidgetList) {
+            if (key === "Radio") {
+                formField.push(
+                    <Grid.Column key={key}>
+                        <Divider horizontal>Config Radio</Divider>
+                        <Message info icon='info' content={`Le widget radio n'est pas paramétrable`} />
+                    </Grid.Column>
+                );
+            } else {
+                formField.push(
+                    <Grid.Column key={key}>
+                        <Divider horizontal>Config {key}</Divider>
+                        {this.generateFormList(config.WidgetList[key].WidgetConfig)}
+                    </Grid.Column>
+                );
             }
-
-            return formField;
         }
+        return formField;
+    }
 
-        return (
-            <Message info icon='info' content={`Le widget radio n'est pas paramétrable`}/>
-        );
-        
+    generateFormList = (config) => {
+        var formField = [];
+        for (var [param, value] of Object.entries(config)) {
+            formField.push(
+                <Form.Input label={param} defaultValue={value} key={param} name={param} onChange={this.handleChange}/>
+            );
+        }
+        return formField;
     }
 
     handleChange = (e, { name, value }) => this.setState({ [name]: value })
 
     updateJson = () => {
-        const { BottomLeft, BottomRight, TopLeft, TopRight, config } = this.state;
+        const { BottomLeft, BottomRight, TopLeft, TopRight, config, Location ,Temperature, TimeZone, Format, Source, NewsNumber, Times } = this.state;
         config.DashboardConfig.TopLeft = TopLeft;
         config.DashboardConfig.TopRight = TopRight;
         config.DashboardConfig.BottomLeft = BottomLeft;
         config.DashboardConfig.BottomRight = BottomRight;
+
+        // Weather config
+        config.WidgetList["Météo"].WidgetConfig.Location = Location;
+        config.WidgetList["Météo"].WidgetConfig.Temperature = Temperature;
+
+        // Clock config
+        config.WidgetList["Horloge"].WidgetConfig.TimeZone = TimeZone;
+        config.WidgetList["Horloge"].WidgetConfig.Format = Format;
+
+        // News config
+        config.WidgetList["News"].WidgetConfig.Source = Source;
+        config.WidgetList["News"].WidgetConfig.NewsNumber = NewsNumber;
+
+        // Timer config
+        config.WidgetList["Timer"].WidgetConfig.Times = Times;
 
         Axios.post("/api/save", config).then(res => {
             console.log("Save success")
@@ -101,24 +145,7 @@ class AdminPage extends React.Component {
                             </Grid.Column>
                         </Grid.Row>
                         <Grid.Row>
-                            <Grid.Column>
-                                <Divider horizontal>Config {TopLeft}</Divider>
-                                {this.generateFormParam(TopLeft, config)}
-                            </Grid.Column>
-                            <Grid.Column>
-                                <Divider horizontal>Config {TopRight}</Divider>
-                                {this.generateFormParam(TopRight, config)}
-                            </Grid.Column>
-                        </Grid.Row>
-                        <Grid.Row>
-                            <Grid.Column>
-                                <Divider horizontal>Config {BottomLeft}</Divider>
-                                {this.generateFormParam(BottomLeft, config)}
-                            </Grid.Column>
-                            <Grid.Column>
-                                <Divider horizontal>Config {BottomRight}</Divider>
-                                {this.generateFormParam(BottomRight, config)}
-                            </Grid.Column>
+                            {this.generateFormParam(config)}
                         </Grid.Row>
                     </Grid>
 

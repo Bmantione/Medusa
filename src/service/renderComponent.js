@@ -7,10 +7,10 @@ import Timer from "../components/Timer"
 
 export default function RenderComponent(component, config) {
     switch (component) {
-        case 'Weather':
-            return <Weather Location={config.Weather.WidgetConfig.Location} />;
-        case 'Clock':
-            return <Clock Timezone={config.Clock.WidgetConfig.TimeZone} Format={config.Clock.WidgetConfig.Format}/>;
+        case 'Météo':
+            return <Weather Location={config["Météo"].WidgetConfig.Location} />;
+        case 'Horloge':
+            return <Clock Timezone={config.Horloge.WidgetConfig.TimeZone} Format={config.Horloge.WidgetConfig.Format}/>;
         case 'News':
             return <News Source={config.News.WidgetConfig.Source}/>;
         case 'Radio':
