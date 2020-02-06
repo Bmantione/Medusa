@@ -2,7 +2,6 @@ import React from "react";
 import {Button, Container, Header, Icon} from "semantic-ui-react";
 import {Link} from "react-router-dom";
 import Axios from "axios";
-import AudioPlayer from "react-h5-audio-player";
 
 class TimerPage extends React.Component {
     constructor(props) {

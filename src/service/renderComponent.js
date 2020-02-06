@@ -5,25 +5,25 @@ import Radio from "../components/Radio"
 import Timer from "../components/Timer"
 import Weather from "../components/Weather"
 
-export default function RenderComponent(component, config) {
-    switch (component) {
+export default function RenderComponent(component) {
+    switch (Object.keys(component)[0]) {
         case 'Météo':
-            return <Weather 
-                    Location={config["Météo"].WidgetConfig.Location} 
-                    Temperature={config["Météo"].WidgetConfig.Temperature}
-                />;
+            return <Weather
+                Location={component["Météo"].Location}
+                Temperature={component["Météo"].Temperature}
+            />;
         case 'Horloge':
-            return <Clock 
-                    Timezone={config.Horloge.WidgetConfig.TimeZone} 
-                    FormatHorloge={config.Horloge.WidgetConfig.FormatHorloge}
-                    FormatDate={config.Horloge.WidgetConfig.FormatDate}
+            return <Clock
+                Timezone={component.Horloge.TimeZone}
+                FormatHorloge={component.Horloge.FormatHorloge}
+                FormatDate={component.Horloge.FormatDate}
             />;
         case 'News':
-            return <News Source={config.News.WidgetConfig.Source} NewsNumber={config.News.WidgetConfig.NewsNumber}/>;
+            return <News Source={component.News.Source} NewsNumber={component.News.NewsNumber} />;
         case 'Radio':
-            return <Radio Source={config.Radio.WidgetConfig.Source}/>;
+            return <Radio Source={component.Radio.Source} />;
         case 'Timer':
-            return <Timer Timer={config.Timer.WidgetConfig.Times}/>;
+            return <Timer Timer={component.Timer.Times} />;
         default:
             return console.log("No component found")
     }

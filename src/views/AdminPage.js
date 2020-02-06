@@ -9,45 +9,47 @@ class AdminPage extends React.Component {
         super(props);
         this.state = {
             config: {},
+            WidgetList: {},
             TopRight: "",
             TopLeft: "",
             BottomLeft: "",
             BottomRight: "",
-            Location: "",
-            Temperature: "",
-            TimeZone: "",
-            Format: "",
-            Source: "",
-            NewsNumber: "",
-            Times: "",
+            ConfigTopLeft: {},
+            ConfigTopRight: {},
+            ConfigBottomLeft: {},
+            ConfigBottomRight: {},
         };
     }
 
 
     componentDidMount() {
-        Axios.get("config.json")
+        Axios.get("db.json")
             .then(res => {
                 var config = res.data
                 this.setState({
                     config: config,
-                    TopLeft: config.DashboardConfig.TopLeft,
-                    TopRight: config.DashboardConfig.TopRight,
-                    BottomLeft: config.DashboardConfig.BottomLeft,
-                    BottomRight: config.DashboardConfig.BottomRight,
-                    Location: config.WidgetList["Météo"].WidgetConfig.Location,
-                    Temperature: config.WidgetList["Météo"].WidgetConfig.Temperature,
-                    TimeZone: config.WidgetList["Horloge"].WidgetConfig.TimeZone,
-                    Format: config.WidgetList["Horloge"].WidgetConfig.Format,
-                    Source: config.WidgetList["News"].WidgetConfig.Source,
-                    NewsNumber: config.WidgetList["News"].WidgetConfig.NewsNumber,
-                    Times: config.WidgetList["Timer"].WidgetConfig.Times,
+                    TopLeft: Object.keys(config.DashboardConfig.TopLeft)[0],
+                    TopRight: Object.keys(config.DashboardConfig.TopRight)[0],
+                    BottomLeft: Object.keys(config.DashboardConfig.BottomLeft)[0],
+                    BottomRight: Object.keys(config.DashboardConfig.BottomRight)[0],
+                    ConfigTopLeft: config.DashboardConfig.TopLeft,
+                    ConfigTopRight: config.DashboardConfig.TopRight,
+                    ConfigBottomLeft: config.DashboardConfig.BottomLeft,
+                    ConfigBottomRight: config.DashboardConfig.BottomRight,
+                })
+            })
+
+        Axios.get("widgetConfig.json")
+            .then(res => {
+                this.setState({
+                    WidgetList: res.data
                 })
             })
     }
 
     createOptionList() {
         var options = [];
-        for (let [key] of Object.entries(this.state.config.WidgetList)) {
+        for (let [key] of Object.entries(this.state.WidgetList)) {
             options.push({
                 key: key,
                 value: key,
@@ -57,34 +59,34 @@ class AdminPage extends React.Component {
         return options
     }
 
-    generateFormParam = (config) => {
-        var formField = [];
-        for (var key in config.WidgetList) {
-            if (key === "Radio") {
-                formField.push(
-                    <Grid.Column key={key}>
-                        <Divider horizontal>Config Radio</Divider>
-                        <Message info icon='info' content={`Le widget radio n'est pas paramétrable`} />
-                    </Grid.Column>
-                );
-            } else {
-                formField.push(
-                    <Grid.Column key={key}>
-                        <Divider horizontal>Config {key}</Divider>
-                        {this.generateFormList(config.WidgetList[key].WidgetConfig)}
-                    </Grid.Column>
-                );
-            }
-        }
-        return formField;
+    generateFormSelect(values) {
+        var options = [];
+        values.forEach(val => {
+            options.push({
+                key: val,
+                value: val,
+                text: val,
+            })
+        })
+        return options
     }
 
-    generateFormList = (config) => {
+    generateForm = (configAvailable, widgetKey, position) => {
         var formField = [];
-        for (var [param, value] of Object.entries(config)) {
-            formField.push(
-                <Form.Input label={param} defaultValue={value} key={param} name={param} onChange={this.handleChange}/>
-            );
+        if (configAvailable[widgetKey] !== undefined && widgetKey !== 'Radio') {
+            for (var [param, value] of Object.entries(configAvailable[widgetKey])) {
+                if (typeof value === "object") {
+                    formField.push(
+                        <Form.Select key={param} name={param} label={param} defaultValue={this.state.config.DashboardConfig[position][widgetKey][param][0]} options={this.generateFormSelect(value)} onChange={this.handleChange} />
+                    )
+                } else {
+                    formField.push(
+                        <Form.Input label={param} defaultValue={this.state.config.DashboardConfig[position][widgetKey][param]} key={param} name={param} onChange={this.handleChange} />
+                    );
+                }
+            }
+        } else {
+            return <Message info icon='warning sign' content='La radio ne peut être modifier' />
         }
         return formField;
     }
@@ -92,7 +94,7 @@ class AdminPage extends React.Component {
     handleChange = (e, { name, value }) => this.setState({ [name]: value })
 
     updateJson = () => {
-        const { BottomLeft, BottomRight, TopLeft, TopRight, config, Location ,Temperature, TimeZone, Format, Source, NewsNumber, Times } = this.state;
+        const { BottomLeft, BottomRight, TopLeft, TopRight, config, Location, Temperature, TimeZone, Format, Source, NewsNumber, Times } = this.state;
         config.DashboardConfig.TopLeft = TopLeft;
         config.DashboardConfig.TopRight = TopRight;
         config.DashboardConfig.BottomLeft = BottomLeft;
@@ -123,8 +125,8 @@ class AdminPage extends React.Component {
     }
 
     renderFormPosition() {
-        const { BottomLeft, BottomRight, TopLeft, TopRight, config } = this.state;
-        if (this.state.config.DashboardConfig !== undefined) {
+        const { BottomLeft, BottomRight, TopLeft, TopRight, config, WidgetList } = this.state;
+        if (config.DashboardConfig !== undefined) {
             return (
                 <Form onSubmit={this.updateJson}>
                     <Grid columns={2}>
@@ -145,10 +147,27 @@ class AdminPage extends React.Component {
                             </Grid.Column>
                         </Grid.Row>
                         <Grid.Row>
-                            {this.generateFormParam(config)}
+                            <Grid.Column>
+                                <Divider horizontal>Config Haut Gauche</Divider>
+                                {this.generateForm(WidgetList, TopLeft, "TopLeft")}
+                            </Grid.Column>
+                            <Grid.Column>
+                                <Divider horizontal>Config Haut Droite</Divider>
+                                {this.generateForm(WidgetList, TopRight, "TopRight")}
+                            </Grid.Column>
+                        </Grid.Row>
+                        <Grid.Row>
+                            <Grid.Column>
+                                <Divider horizontal>Config Bas Gauche</Divider>
+                                {this.generateForm(WidgetList, BottomLeft, "BottomLeft")}
+                            </Grid.Column>
+                            <Grid.Column>
+                                <Divider horizontal>Config Bas Droite</Divider>
+                                {this.generateForm(WidgetList, BottomRight, "BottomRight")}
+                            </Grid.Column>
                         </Grid.Row>
                     </Grid>
-
+                    <br />
                     <Button.Group floated='right'>
                         <Button>Annuler</Button>
                         <Button.Or text='ou' />
