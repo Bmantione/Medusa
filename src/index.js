@@ -1,11 +1,11 @@
+import { createBrowserHistory } from "history";
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { Route, Router, Switch } from "react-router-dom";
+import 'semantic-ui-less/semantic.less';
 import './index.css';
 import * as serviceWorker from './serviceWorker';
-import 'semantic-ui-less/semantic.less';
-import {Router, Route, Switch} from "react-router-dom";
 import SwitchRoute from "./SwitchRoutes";
-import {createBrowserHistory} from "history";
 import RadioPage from "./views/RadioPage";
 import TimerPage from "./views/TimerPage";
 

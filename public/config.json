@@ -14,8 +14,9 @@
         },
         "Horloge": {
             "WidgetConfig": {
-                "TimeZone": "GMT+01",
-                "Format": "HH:mm:ss DD:MM:YYYY"
+                "TimeZone": "Europe/Paris",
+                "FormatHorloge": "HH:mm:ss",
+                "FormatDate": "dddd DD  MMMM YYYY"
             }
         },
         "News": {

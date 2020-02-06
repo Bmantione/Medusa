@@ -1,8 +1,8 @@
-import React from "react";
 import axios from "axios";
-import { Image, Loader, Grid, Header } from "semantic-ui-react";
+import React from "react";
 import Moment from "react-moment";
-import './News.component.css'
+import { Grid, Header, Image, Loader } from "semantic-ui-react";
+import './News.component.css';
 
 class News extends React.Component {
   constructor(props) {
@@ -18,7 +18,7 @@ class News extends React.Component {
   };
 
   renderList() {
-    return this.state.news.map(n => {
+    return this.state.news.slice(0, this.props.NewsNumber).map(n => {
       return (
         <Grid.Column key={n.url}>
           <Grid.Row>
