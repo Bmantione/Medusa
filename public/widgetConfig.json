@@ -1,0 +1,36 @@
+{
+    "Météo": {
+        "Location": "text",
+        "Temperature": [
+            "Celcius",
+            "Kelvin"
+        ]
+    },
+    "Horloge": {
+        "TimeZone": "text",
+        "FormatHorloge": [
+            "12h",
+            "24h"
+        ],
+        "FormatDate": "dddd DD  MMMM YYYY"
+    },
+    "News": {
+        "Source": "text",
+        "NewsNumber": "0"
+    },
+    "Timer": {
+        "Times": [
+            5,
+            10,
+            15
+        ]
+    },
+    "Radio": {
+        "Source": [{
+            "Titre": "text",
+            "Source": "text",
+            "Img": "text",
+            "Active": true
+        }]
+    }
+}

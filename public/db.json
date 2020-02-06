@@ -1,0 +1,8 @@
+{
+    "DashboardConfig": {
+        "TopLeft": "Météo",
+        "TopRight": "News",
+        "BottomRight": "Horloge",
+        "BottomLeft": "Radio"
+    }
+}
