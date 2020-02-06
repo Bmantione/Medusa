@@ -1,21 +1,22 @@
 {
     "DashboardConfig": {
-        "TopLeft": "Weather",
+        "TopLeft": "Météo",
         "TopRight": "News",
-        "BottomRight": "Clock",
+        "BottomRight": "Horloge",
         "BottomLeft": "Radio"
     },
     "WidgetList": {
-        "Weather": {
+        "Météo": {
             "WidgetConfig": {
-                "Location": "Rennes",
+                "Location": "Cesson-Sevigne",
                 "Temperature": "Celsius"
             }
         },
-        "Clock": {
+        "Horloge": {
             "WidgetConfig": {
-                "TimeZone": "GMT+01",
-                "Format": "HH:mm:ss DD:MM:YYYY"
+                "TimeZone": "Europe/Paris",
+                "FormatHorloge": "HH:mm:ss",
+                "FormatDate": "dddd DD  MMMM YYYY"
             }
         },
         "News": {

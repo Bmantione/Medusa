@@ -1,13 +1,14 @@
 import React from "react";
 import './Radio.component.css';
 import radio from '../assets/icon/radio.png';
+import { Image } from "semantic-ui-react";
 
 class Radio extends React.Component {
     render() {
         return (
             <div>
                 <a href="/radio">
-                    <img src={radio} className="ui small centered image" style={{'height':'auto','width':'auto'}} alt="" />
+                    <Image src={radio} size='medium' centered/>
                 </a>
             </div>
         );

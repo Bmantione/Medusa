@@ -1,6 +1,9 @@
+import 'moment-timezone';
+import 'moment/locale/fr';
 import React from 'react';
-import './Clock.component.scss'
+import Moment from 'react-moment';
 import { Header } from 'semantic-ui-react';
+import './Clock.component.scss';
 class Clock extends React.Component {
     constructor(props) {
         super(props);
@@ -22,28 +25,12 @@ class Clock extends React.Component {
     }
 
     render() {
-        const monthNames = ["Janvier", "Février", "Mars", "Avril", "Mai", "Juin", "Juillet", "Août", "Septembre", "Octobre", "Novembre", "Décembre"];
-        const dayNames = ['Dimanche', 'Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi'];
-
-        let date = new Date();
-
-        let hours = ('0' + date.getHours()).slice(-2);
-        let minutes = ('0' + date.getMinutes()).slice(-2);
-        let seconds = ('0' + date.getSeconds()).slice(-2);
-        let hour_val = hours + ":" + minutes + ":" + seconds;
-
-        let weekday = dayNames[date.getDay()];
-        let day = date.getDate();
-        let month = monthNames[date.getMonth()];
-        let year = date.getFullYear();
-        let date_val = weekday + ' ' + day + ' ' + month + ' ' + year;
-
         return (
             <div className="clock">
                 <Header as='h1' className='hour' inverted textAlign='center'>
-                    {hour_val}
+                    <Moment format={this.props.FormatHorloge} locale="fr" tz={this.props.TimeZone}/>
                     <Header.Subheader className='date'>
-                        {date_val}
+                        <Moment format={this.props.FormatDate} locale="fr" />
                     </Header.Subheader>
                 </Header>
             </div>

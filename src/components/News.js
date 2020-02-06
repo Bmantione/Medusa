@@ -1,8 +1,8 @@
-import React from "react";
 import axios from "axios";
-import { List, Image, Loader } from "semantic-ui-react";
+import React from "react";
 import Moment from "react-moment";
-import './News.component.css'
+import { Grid, Header, Image, Loader } from "semantic-ui-react";
+import './News.component.css';
 
 class News extends React.Component {
   constructor(props) {
@@ -18,19 +18,19 @@ class News extends React.Component {
   };
 
   renderList() {
-    return this.state.news.map(n => {
+    return this.state.news.slice(0, this.props.NewsNumber).map(n => {
       return (
-        <List.Item key={n.url}>
-          <Image src={n.urlToImage} verticalAlign='middle' size='tiny' floated='left' />
-          <List.Content>
-            <List.Header>{n.title}</List.Header>
-            <List.Description>
-              <b><Moment date={n.publishedAt} format="HH:mm DD/MM/YYYY" /></b>
-              <br />
-              {n.description + '...'}
-            </List.Description>
-          </List.Content>
-        </List.Item>
+        <Grid.Column key={n.url}>
+          <Grid.Row>
+            <Header as="h2" inverted>
+              <Image src={n.urlToImage} verticalAlign='middle' size='small' floated='left' /> {n.title}
+              <Header.Subheader>
+                <b><Moment date={n.publishedAt} format="HH:mm DD/MM/YYYY" /></b>
+                <p>{n.description}</p>
+              </Header.Subheader>
+            </Header>
+          </Grid.Row>
+        </Grid.Column>
       )
     })
   }
@@ -41,10 +41,10 @@ class News extends React.Component {
     }
 
     return (
-      <div className='news'>
-        <List divided selection verticalAlign='middle'>
+      <div>
+        <Grid columns={1} className='news'>
           {this.renderList()}
-        </List>
+        </Grid>
       </div>
     )
   }
