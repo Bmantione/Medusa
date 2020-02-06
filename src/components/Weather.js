@@ -1,7 +1,7 @@
 import Axios from "axios";
 import React from "react";
 import { List, Message } from "semantic-ui-react";
-import 'weather-icons/css/weather-icons.css';
+import 'weathericons/css/weather-icons.css';
 
 class Weather extends React.Component {
     constructor(props) {
