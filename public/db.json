@@ -2,28 +2,13 @@
     "DashboardConfig": {
         "TopLeft": {
             "Météo": {
-                "Location": "Cesson-Sevigne",
+                "Location": "Rennes",
                 "Temperature": [
                     "Celsius"
                 ]
             }
         },
         "TopRight": {
-            "News": {
-                "Source": "https://newsapi.org/v2/top-headlines?sources=google-news-fr&apiKey=7485e20aca044c7fbd9d9694f47bbadc",
-                "NewsNumber": "-1"
-            }
-        },
-        "BottomRight": {
-            "Horloge": {
-                "TimeZone": "Europe/Paris",
-                "FormatHorloge": [
-                    "24h"
-                ],
-                "FormatDate": "dddd DD  MMMM YYYY"
-            }
-        },
-        "BottomLeft": {
             "Radio": {
                 "Source": [
                     {
@@ -81,6 +66,21 @@
                         "Active": true
                     }
                 ]
+            }
+        },
+        "BottomRight": {
+            "Horloge": {
+                "TimeZone": "Europe/Paris",
+                "FormatHorloge": [
+                    "24h"
+                ],
+                "FormatDate": "dddd DD  MMMM YYYY"
+            }
+        },
+        "BottomLeft": {
+            "News": {
+                "Source": "https://newsapi.org/v2/top-headlines?sources=google-news-fr&apiKey=7485e20aca044c7fbd9d9694f47bbadc",
+                "NewsNumber": "-1"
             }
         }
     }

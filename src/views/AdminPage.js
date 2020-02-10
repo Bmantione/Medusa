@@ -3,7 +3,6 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { Button, Container, Divider, Form, Grid, Header, Icon, Message } from 'semantic-ui-react';
 import './adminPage.views.css';
-import { createPath } from 'history';
 
 class AdminPage extends React.Component {
     constructor(props) {
@@ -94,12 +93,12 @@ class AdminPage extends React.Component {
                 if (typeof value === "object") {
                     if (this.state.config.DashboardConfig[position][widgetKey] !== undefined) {
                         formField.push(
-                            <Form.Select key={param} name={param} label={param} defaultValue={this.state.config.DashboardConfig[position][widgetKey][param][0] || "default"} options={this.generateFormSelect(value)} onChange={this.handleChange} />
+                            <Form.Select key={param} name={"Config" + position + "." + param + "." + widgetKey} label={param} defaultValue={this.state.config.DashboardConfig[position][widgetKey][param][0] || "default"} options={this.generateFormSelect(value)} onChange={this.handleChangeForm} />
                         )
                     } else {
                         //Use default config
                         formField.push(
-                            <Form.Select key={param} name={param} label={param} defaultValue={value[0]} options={this.generateFormSelect(value)} onChange={this.handleChange} />
+                            <Form.Select key={param} name={"Config" + position + "." + param + "." + widgetKey} label={param} defaultValue={value[0]} options={this.generateFormSelect(value)} onChange={this.handleChangeForm} />
                         )
                     }
 
@@ -111,7 +110,7 @@ class AdminPage extends React.Component {
                     } else {
                         //Use default config
                         formField.push(
-                            <Form.Input label={param} defaultValue={value} key={param} name={param} onChange={this.handleChangeForm} />
+                            <Form.Input label={param} defaultValue={value} key={param} name={"Config" + position + "." + param + "." + widgetKey} onChange={this.handleChangeForm} />
                         );
                     }
 
@@ -126,27 +125,13 @@ class AdminPage extends React.Component {
     handleChange = (e, { name, value }) => this.setState({ [name]: value })
 
     updateJson = () => {
-        const { BottomLeft, BottomRight, TopLeft, TopRight, config, Location, Temperature, TimeZone, Format, Source, NewsNumber, Times } = this.state;
-        config.DashboardConfig.TopLeft = TopLeft;
-        config.DashboardConfig.TopRight = TopRight;
-        config.DashboardConfig.BottomLeft = BottomLeft;
-        config.DashboardConfig.BottomRight = BottomRight;
+        const { config, ConfigTopLeft, ConfigBottomLeft, ConfigTopRight, ConfigBottomRight } = this.state;
 
-        // Weather config
-        config.WidgetList["Météo"].WidgetConfig.Location = Location;
-        config.WidgetList["Météo"].WidgetConfig.Temperature = Temperature;
-
-        // Clock config
-        config.WidgetList["Horloge"].WidgetConfig.TimeZone = TimeZone;
-        config.WidgetList["Horloge"].WidgetConfig.Format = Format;
-
-        // News config
-        config.WidgetList["News"].WidgetConfig.Source = Source;
-        config.WidgetList["News"].WidgetConfig.NewsNumber = NewsNumber;
-
-        // Timer config
-        config.WidgetList["Timer"].WidgetConfig.Times = Times;
-
+        config.DashboardConfig.TopLeft = ConfigTopLeft;
+        config.DashboardConfig.TopRight = ConfigTopRight;
+        config.DashboardConfig.BottomLeft = ConfigBottomLeft;
+        config.DashboardConfig.BottomRight = ConfigBottomRight;
+        console.log(config);
         Axios.post("/api/save", config).then(res => {
             console.log("Save success")
         })
