@@ -1,13 +1,13 @@
 {
     "Météo": {
-        "Location": "text",
+        "Location": "Rennes",
         "Temperature": [
             "Celsius",
             "Kelvin"
         ]
     },
     "Horloge": {
-        "TimeZone": "text",
+        "TimeZone": "Europe/Paris",
         "FormatHorloge": [
             "12h",
             "24h"
@@ -15,8 +15,8 @@
         "FormatDate": "dddd DD  MMMM YYYY"
     },
     "News": {
-        "Source": "text",
-        "NewsNumber": "0"
+        "Source": "https://newsapi.org/v2/top-headlines?sources=google-news-fr&apiKey=7485e20aca044c7fbd9d9694f47bbadc",
+        "NewsNumber": "-1"
     },
     "Timer": {
         "Times": [

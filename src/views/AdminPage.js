@@ -26,6 +26,7 @@ class AdminPage extends React.Component {
         Axios.get("db.json")
             .then(res => {
                 var config = res.data
+                console.log("ff: ",config.DashboardConfig.TopLeft)
                 this.setState({
                     config: config,
                     TopLeft: Object.keys(config.DashboardConfig.TopLeft)[0],
@@ -59,8 +60,22 @@ class AdminPage extends React.Component {
         return options
     }
 
+    handleChangeForm = (e) => 
+    {
+        console.log("name: ", e.target.name)
+        console.log("value: ", e.target.value)
+       
+        const nameSplited = e.target.name.split(".")
+        console.log(this.state[nameSplited[0]])
+        console.log("de: ", nameSplited[1].nameSplited[2])
+        /*this.setState({
+            [nameSplited[0]]: nameSplited[1][nameSplited[2]]
+        })*/
+    }
+
     generateFormSelect(values) {
         var options = [];
+        
         values.forEach(val => {
             options.push({
                 key: val,
@@ -73,16 +88,35 @@ class AdminPage extends React.Component {
 
     generateForm = (configAvailable, widgetKey, position) => {
         var formField = [];
-        if (configAvailable[widgetKey] !== undefined && widgetKey !== 'Radio') {
+
+        if (configAvailable[widgetKey] !== undefined && widgetKey !== 'Radio' ) {
             for (var [param, value] of Object.entries(configAvailable[widgetKey])) {
+                console.log()
                 if (typeof value === "object") {
-                    formField.push(
-                        <Form.Select key={param} name={param} label={param} defaultValue={this.state.config.DashboardConfig[position][widgetKey][param][0]} options={this.generateFormSelect(value)} onChange={this.handleChange} />
-                    )
+                    if (this.state.config.DashboardConfig[position][widgetKey] !== undefined) {
+                        formField.push(
+                            <Form.Select key={param} name={param} label={param} defaultValue={this.state.config.DashboardConfig[position][widgetKey][param][0] || "default"} options={this.generateFormSelect(value)} onChange={this.handleChange} />
+                        )
+                    } else {
+                        //Use default config
+                        formField.push(
+                            <Form.Select key={param} name={param} label={param} defaultValue={value[0]} options={this.generateFormSelect(value)} onChange={this.handleChange} />
+                        )
+                    }
+                    
                 } else {
-                    formField.push(
-                        <Form.Input label={param} defaultValue={this.state.config.DashboardConfig[position][widgetKey][param]} key={param} name={param} onChange={this.handleChange} />
-                    );
+                    console.log(this.state.config.DashboardConfig[position][widgetKey])
+                    if (this.state.config.DashboardConfig[position][widgetKey] !== undefined) {
+                        formField.push(
+                            <Form.Input label={param} value={this.state.config.DashboardConfig[position][widgetKey][param]} key={param} name={"Config" + position + "." + widgetKey + "." + param} onChange={this.handleChangeForm} />
+                        );
+                    } else {
+                        //Use default config
+                        formField.push(
+                            <Form.Input label={param} value={value} key={param} name={param} onChange={this.handleChangeForm} />
+                        );
+                    }
+                    
                 }
             }
         } else {
