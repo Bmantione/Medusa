@@ -3,6 +3,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { Button, Container, Divider, Form, Grid, Header, Icon, Message } from 'semantic-ui-react';
 import './adminPage.views.css';
+import { createPath } from 'history';
 
 class AdminPage extends React.Component {
     constructor(props) {
@@ -61,11 +62,13 @@ class AdminPage extends React.Component {
 
     handleChangeForm = (e, { name, value }) => {
         const nameSplited = name.split(".")
-        let stateKey = nameSplited[0]
-        let nameKey = nameSplited[1]
-        console.log(this.state[stateKey])
-        console.log(stateKey)
-        this.setState({ [stateKey]: { ...this.state[stateKey], [nameKey]: value } })
+        const stateKey = nameSplited[0]
+        const nameKey = nameSplited[1]
+        const widgetKey = nameSplited[2]
+        let config = Object.assign({}, this.state[stateKey])
+        config[widgetKey][nameKey] = value
+        this.setState(
+            { [stateKey]: config })
 
         console.log(this.state[stateKey])
     }
@@ -103,12 +106,12 @@ class AdminPage extends React.Component {
                 } else {
                     if (this.state.config.DashboardConfig[position][widgetKey] !== undefined) {
                         formField.push(
-                            <Form.Input label={param} value={this.state.config.DashboardConfig[position][widgetKey][param]} key={param} name={"Config" + position + "." + param} onChange={this.handleChangeForm} />
+                            <Form.Input label={param} defaultValue={this.state.config.DashboardConfig[position][widgetKey][param]} key={param} name={"Config" + position + "." + param + "." + widgetKey} onChange={this.handleChangeForm} />
                         );
                     } else {
                         //Use default config
                         formField.push(
-                            <Form.Input label={param} value={value} key={param} name={param} onChange={this.handleChangeForm} />
+                            <Form.Input label={param} defaultValue={value} key={param} name={param} onChange={this.handleChangeForm} />
                         );
                     }
 
