@@ -161,6 +161,7 @@ class AdminPage extends React.Component {
         if (config.DashboardConfig !== undefined) {
             return (
                 <Form onSubmit={this.updateJson}>
+
                     <Grid columns={2}>
                         <Grid.Row>
                             <Grid.Column>
