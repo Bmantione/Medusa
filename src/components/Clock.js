@@ -7,7 +7,7 @@ import './Clock.component.scss';
 class Clock extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {seconds: 0};
+        this.state = { seconds: 0 };
     }
 
     tick() {
@@ -28,10 +28,13 @@ class Clock extends React.Component {
         return (
             <div className="clock">
                 <Header as='h1' className='hour' inverted textAlign='center'>
-                    <Moment format={'HH:mm:ss'} locale="fr" tz={this.props.TimeZone}/>
+                    <Moment format={'HH:mm:ss'} locale="fr" tz={this.props.TimeZone} />
                     <Header.Subheader className='date'>
                         <Moment format={this.props.FormatDate} locale="fr" />
                     </Header.Subheader>
+                </Header>
+                <Header as='h4' inverted textAlign='center'>
+                    {this.props.TimeZone}
                 </Header>
             </div>
         );

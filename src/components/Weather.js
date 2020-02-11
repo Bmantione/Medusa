@@ -57,7 +57,7 @@ class Weather extends React.Component {
 
     // TOUTES LES FONCTIONS UTILES DANS LE COMPOSANT
     precise(x) {
-        if (this.props.Temperature === "Celsius") {
+        if (this.props.Temperature[0] === "Celsius") {
             let number = x - 273.15;
             return Number.parseFloat(number).toPrecision(2);
         }

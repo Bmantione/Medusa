@@ -65,9 +65,24 @@ class AdminPage extends React.Component {
         const nameKey = nameSplited[1]
         const widgetKey = nameSplited[2]
         let config = Object.assign({}, this.state[stateKey])
-        config[widgetKey][nameKey] = value
-        this.setState(
-            { [stateKey]: config })
+        if (Object.keys(this.state[stateKey])[0] === widgetKey) {
+            config[widgetKey][nameKey] = value
+            this.setState(
+                { [stateKey]: config }
+            )
+            console.log(stateKey)
+        } else {
+            let config = Object.assign({}, this.state.WidgetList[widgetKey])
+            config = {
+                [widgetKey]: config
+            }
+            console.log(config)
+            this.setState(
+                { [stateKey]: config }
+            )
+            console.log(stateKey)
+        }
+
 
         console.log(this.state[stateKey])
     }

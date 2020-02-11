@@ -14,7 +14,7 @@ export default function RenderComponent(component) {
             />;
         case 'Horloge':
             return <Clock
-                Timezone={component.Horloge.TimeZone}
+                TimeZone={component.Horloge.TimeZone}
                 FormatHorloge={component.Horloge.FormatHorloge}
                 FormatDate={component.Horloge.FormatDate}
             />;
