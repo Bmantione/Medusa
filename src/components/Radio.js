@@ -8,6 +8,8 @@ class Radio extends React.Component {
         return (
             <div>
                 <a href="/radio">
+                    <br/>
+                    <br/>
                     <Image src={radio} size='medium' centered/>
                 </a>
             </div>

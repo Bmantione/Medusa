@@ -19,12 +19,15 @@
             }
         },
         "BottomRight": {
-            "Horloge": {
-                "TimeZone": "Europe/Paris",
-                "FormatHorloge": [
-                    "24h"
-                ],
-                "FormatDate": "dddd DD  MMMM YYYY"
+            "Radio": {
+                "Source": [
+                    {
+                        "Titre": "text",
+                        "Source": "text",
+                        "Img": "text",
+                        "Active": true
+                    }
+                ]
             }
         },
         "BottomLeft": {

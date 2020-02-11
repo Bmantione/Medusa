@@ -51,3 +51,30 @@
 .date {
     font-size: 25px;
 }
+
+.mb-0 {
+    margin-bottom: 0px !important;
+}
+
+.m-0 {
+    margin: 0px !important;
+}
+
+.parameter-div {
+    position:fixed;
+    bottom: 0%;
+    right: 0%;
+}
+
+.text-center {
+    text-align: center !important;
+}
+
+.font-large {
+    font-size: 1.5rem;
+}
+
+.font-big {
+    font-size: 9vw;
+}
+

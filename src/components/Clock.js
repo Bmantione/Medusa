@@ -27,7 +27,7 @@ class Clock extends React.Component {
     render() {
         return (
             <div className="clock">
-                <Header as='h1' className='hour' inverted textAlign='center'>
+                <Header as='h1' className='hour mb-0' inverted textAlign='center'>
                     <Moment format={'HH:mm:ss'} locale="fr" tz={this.props.TimeZone} />
                     <Header.Subheader className='date'>
                         <Moment format={this.props.FormatDate} locale="fr" />
