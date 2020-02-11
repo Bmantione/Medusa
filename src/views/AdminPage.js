@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { Button, Container, Divider, Form, Grid, Header, Icon, Message } from 'semantic-ui-react';
 import './adminPage.views.css';
 
+
 class AdminPage extends React.Component {
     constructor(props) {
         super(props);
@@ -70,21 +71,15 @@ class AdminPage extends React.Component {
             this.setState(
                 { [stateKey]: config }
             )
-            console.log(stateKey)
         } else {
             let config = Object.assign({}, this.state.WidgetList[widgetKey])
             config = {
                 [widgetKey]: config
             }
-            console.log(config)
             this.setState(
                 { [stateKey]: config }
             )
-            console.log(stateKey)
         }
-
-
-        console.log(this.state[stateKey])
     }
 
     generateFormSelect(values) {
@@ -116,7 +111,6 @@ class AdminPage extends React.Component {
                             <Form.Select key={param} name={"Config" + position + "." + param + "." + widgetKey} label={param} defaultValue={value[0]} options={this.generateFormSelect(value)} onChange={this.handleChangeForm} />
                         )
                     }
-
                 } else {
                     if (this.state.config.DashboardConfig[position][widgetKey] !== undefined) {
                         formField.push(
@@ -128,7 +122,6 @@ class AdminPage extends React.Component {
                             <Form.Input label={param} defaultValue={value} key={param} name={"Config" + position + "." + param + "." + widgetKey} onChange={this.handleChangeForm} />
                         );
                     }
-
                 }
             }
         } else {
@@ -137,7 +130,18 @@ class AdminPage extends React.Component {
         return formField;
     }
 
-    handleChange = (e, { name, value }) => this.setState({ [name]: value })
+    handleChange = (e, { name, value }) => {
+        let config = Object.assign({}, this.state.WidgetList[value])
+        config = {
+            [value]: config
+        }
+
+        this.setState({
+            ["Config" + name]: config
+        })
+
+        this.setState({ [name]: value })
+    }
 
     updateJson = () => {
         const { config, ConfigTopLeft, ConfigBottomLeft, ConfigTopRight, ConfigBottomRight } = this.state;
@@ -146,14 +150,10 @@ class AdminPage extends React.Component {
         config.DashboardConfig.TopRight = ConfigTopRight;
         config.DashboardConfig.BottomLeft = ConfigBottomLeft;
         config.DashboardConfig.BottomRight = ConfigBottomRight;
-        console.log(config);
-        Axios.post("/api/save", config).then(res => {
-            console.log("Save success")
-        })
-    }
 
-    componentWillUnmount() {
-
+        Axios.post("/api/save", config).then(
+            console.log("Sauvegarde réussie")
+        )
     }
 
     renderFormPosition() {

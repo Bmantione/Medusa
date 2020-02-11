@@ -9,12 +9,13 @@
             }
         },
         "TopRight": {
-            "Météo": {
-                "Location": "Cesson-Sevigne",
-                "Temperature": [
-                    "Celsius",
-                    "Kelvin"
-                ]
+            "Horloge": {
+                "TimeZone": "Europe/Paris",
+                "FormatHorloge": [
+                    "12h",
+                    "24h"
+                ],
+                "FormatDate": "dddd DD  MMMM YYYY"
             }
         },
         "BottomRight": {
