@@ -10,7 +10,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 app.post('/api/save', (req, res) => {
     const content = JSON.stringify(req.body, null, 4);
-    fs.writeFileSync('./public/config.json', content);
+    fs.writeFileSync('./public/db.json', content);
 });
 
 app.listen(port, () => console.log(`Listening on port ${port}`));

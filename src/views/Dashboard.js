@@ -9,20 +9,20 @@ import RenderComponent from '../service/renderComponent';
 class Dashboard extends React.Component {
     constructor(props) {
         super(props);
-        this.state = { config: {} };
+        this.state = { db: {} };
     }
 
     componentDidMount() {
-        axios.get("config.json")
+        axios.get("db.json")
             .then(res => {
-                this.setState({ config: res.data })
+                this.setState({ db: res.data })
             })
     }
 
     renderGrid() {
-        var { config } = this.state;
+        var { db } = this.state;
 
-        config.DashboardConfig.map(val => {
+        db.DashboardConfig.map(val => {
             return console.log(val)
 
         })
@@ -38,28 +38,28 @@ class Dashboard extends React.Component {
             padding: '1px',
             marging: '2px'
         };
-        if (this.state.config.DashboardConfig !== undefined) {
+        if (this.state.db.DashboardConfig !== undefined) {
             return (
                 <div>
                     <div className="ui grid">
                         <div className="eight wide column" style={bloc_style}>
                             <div className="ui blue inverted segment" style={segment_style}>
-                                {RenderComponent(this.state.config.DashboardConfig.TopLeft, this.state.config.WidgetList)}
+                                {RenderComponent(this.state.db.DashboardConfig.TopLeft)}
                             </div>
                         </div>
                         <div className="eight wide column" style={bloc_style}>
                             <div className="ui red inverted segment" style={segment_style}>
-                                {RenderComponent(this.state.config.DashboardConfig.TopRight, this.state.config.WidgetList)}
+                                {RenderComponent(this.state.db.DashboardConfig.TopRight)}
                             </div>
                         </div>
                         <div className="eight wide column" style={bloc_style}>
                             <div className="ui green inverted segment" style={segment_style}>
-                                {RenderComponent(this.state.config.DashboardConfig.BottomLeft, this.state.config.WidgetList)}
+                                {RenderComponent(this.state.db.DashboardConfig.BottomLeft)}
                             </div>
                         </div>
                         <div className="eight wide column" style={bloc_style}>
                             <div className="ui black inverted segment" style={segment_style}>
-                                {RenderComponent(this.state.config.DashboardConfig.BottomRight, this.state.config.WidgetList)}
+                                {RenderComponent(this.state.db.DashboardConfig.BottomRight)}
                             </div>
                         </div>
                         <div className="sixteen wide column" style={{padding: '1px'}}>
