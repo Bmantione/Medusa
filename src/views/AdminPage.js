@@ -103,7 +103,7 @@ class AdminPage extends React.Component {
                 if (typeof value === "object") {
                     if (this.state.config.DashboardConfig[position][widgetKey] !== undefined) {
                         formField.push(
-                            <Form.Select key={param} name={"Config" + position + "." + param + "." + widgetKey} label={param} defaultValue={this.state.config.DashboardConfig[position][widgetKey][param][0] || "default"} options={this.generateFormSelect(value)} onChange={this.handleChangeForm} />
+                            <Form.Select key={param} name={"Config" + position + "." + param + "." + widgetKey} label={param} defaultValue={this.state.config.DashboardConfig[position][widgetKey][param] || "default"} options={this.generateFormSelect(value)} onChange={this.handleChangeForm} />
                         )
                     } else {
                         //Use default config

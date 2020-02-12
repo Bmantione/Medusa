@@ -25,10 +25,16 @@ class Clock extends React.Component {
     }
 
     render() {
+        let clockFormat = ""
+        if (this.props.FormatHorloge === "12h") {
+            clockFormat = "hh:mm:ss"
+        } else {
+            clockFormat = "HH:mm:ss"
+        }
         return (
             <div className="clock">
                 <Header as='h1' className='hour mb-0' inverted textAlign='center'>
-                    <Moment format={'HH:mm:ss'} locale="fr" tz={this.props.TimeZone} />
+                    <Moment format={clockFormat} locale="fr" tz={this.props.TimeZone} />
                     <Header.Subheader className='date'>
                         <Moment format={this.props.FormatDate} locale="fr" />
                     </Header.Subheader>

@@ -3,7 +3,8 @@
         "Localisation": "Rennes",
         "Temperature": [
             "Celsius",
-            "Kelvin"
+            "Kelvin",
+            "Fahrenheit"
         ]
     },
     "Horloge": {
