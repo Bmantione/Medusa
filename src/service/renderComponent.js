@@ -9,17 +9,17 @@ export default function RenderComponent(component) {
     switch (Object.keys(component)[0]) {
         case 'Météo':
             return <Weather
-                Location={component["Météo"].Location}
+                Location={component["Météo"].Localisation}
                 Temperature={component["Météo"].Temperature}
             />;
         case 'Horloge':
             return <Clock
-                TimeZone={component.Horloge.TimeZone}
-                FormatHorloge={component.Horloge.FormatHorloge}
-                FormatDate={component.Horloge.FormatDate}
+                TimeZone={component.Horloge["Time Zone"]}
+                FormatHorloge={component.Horloge["Format Horloge"]}
+                FormatDate={component.Horloge["Format Date"]}
             />;
         case 'News':
-            return <News Source={component.News.Source} NewsNumber={component.News.NewsNumber} />;
+            return <News Source={component.News.Source} NewsNumber={component.News["News à afficher"]} />;
         case 'Radio':
             return <Radio Source={component.Radio.Source} />;
         case 'Timer':

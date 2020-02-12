@@ -1,22 +1,22 @@
 {
     "Météo": {
-        "Location": "Rennes",
+        "Localisation": "Rennes",
         "Temperature": [
             "Celsius",
             "Kelvin"
         ]
     },
     "Horloge": {
-        "TimeZone": "Europe/Paris",
-        "FormatHorloge": [
+        "Time Zone": "Europe/Paris",
+        "Format Heure": [
             "12h",
             "24h"
         ],
-        "FormatDate": "dddd DD  MMMM YYYY"
+        "Format Date": "dddd DD  MMMM YYYY"
     },
     "News": {
         "Source": "https://newsapi.org/v2/top-headlines?sources=google-news-fr&apiKey=7485e20aca044c7fbd9d9694f47bbadc",
-        "NewsNumber": "-1"
+        "News à afficher": "-1"
     },
     "Timer": {
         "Times": [
