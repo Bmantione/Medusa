@@ -1,9 +1,11 @@
 import Axios from 'axios';
 import React from 'react';
 import { Link } from 'react-router-dom';
+import Keyboard from "react-simple-keyboard";
 import { Button, Container, Divider, Form, Grid, Header, Icon, Message } from 'semantic-ui-react';
 import './adminPage.views.css';
-
+import layout from "simple-keyboard-layouts/build/layouts/french";
+import "react-simple-keyboard/build/css/index.css";
 
 class AdminPage extends React.Component {
     constructor(props) {
@@ -19,6 +21,10 @@ class AdminPage extends React.Component {
             ConfigTopRight: {},
             ConfigBottomLeft: {},
             ConfigBottomRight: {},
+            keyboardOpen: false,
+            inputName: "",
+            keyboardInput: "",
+            layoutName: ""
         };
     }
 
@@ -69,7 +75,9 @@ class AdminPage extends React.Component {
         if (Object.keys(this.state[stateKey])[0] === widgetKey) {
             config[widgetKey][nameKey] = value
             this.setState(
-                { [stateKey]: config }
+                { [stateKey]: config }, () => {
+                    this.keyboard.setInput(value);
+                }
             )
         } else {
             let config = Object.assign({}, this.state.WidgetList[widgetKey])
@@ -95,6 +103,57 @@ class AdminPage extends React.Component {
         return options
     }
 
+    setActiveInput = (inputName) => {
+        this.setState(
+            {
+                inputName: inputName,
+                keyboardOpen: true
+            },
+            () => {
+                console.log("Active input", inputName);
+            }
+        );
+    };
+
+    onChange = (value) => {
+        const name = this.state.inputName;
+
+        const nameSplited = name.split(".");
+        const stateKey = nameSplited[0];
+        const nameKey = nameSplited[1];
+        const widgetKey = nameSplited[2];
+
+        let config = Object.assign({}, this.state[stateKey])
+        let prevStateValue = this.state[stateKey][widgetKey][nameKey]
+
+        if (Object.keys(this.state[stateKey])[0] === widgetKey) {
+            config[widgetKey][nameKey] = value
+            this.setState(
+                { [stateKey]: config }
+            )
+        } else {
+            let config = Object.assign({}, this.state.WidgetList[widgetKey])
+            config = {
+                [widgetKey]: config
+            }
+            this.setState(
+                { [stateKey]: config }
+            )
+        }
+    };
+
+    handleShift = () => {
+        const layoutName = this.state.layoutName;
+
+        this.setState({
+            layoutName: layoutName === "default" ? "shift" : "default"
+        });
+    };
+
+    showKeyboard = () => {
+        this.setState({ keyboardOpen: false })
+    }
+
     generateForm = (configAvailable, widgetKey, position) => {
         var formField = [];
 
@@ -103,23 +162,52 @@ class AdminPage extends React.Component {
                 if (typeof value === "object") {
                     if (this.state.config.DashboardConfig[position][widgetKey] !== undefined) {
                         formField.push(
-                            <Form.Select key={param} name={"Config" + position + "." + param + "." + widgetKey} label={param} defaultValue={this.state.config.DashboardConfig[position][widgetKey][param] || "default"} options={this.generateFormSelect(value)} onChange={this.handleChangeForm} />
+                            <Form.Select
+                                key={param}
+                                name={"Config" + position + "." + param + "." + widgetKey}
+                                label={param}
+                                defaultValue={this.state.config.DashboardConfig[position][widgetKey][param] || "default"}
+                                options={this.generateFormSelect(value)}
+                                onChange={this.handleChangeForm}
+                            />
                         )
                     } else {
                         //Use default config
                         formField.push(
-                            <Form.Select key={param} name={"Config" + position + "." + param + "." + widgetKey} label={param} defaultValue={value[0]} options={this.generateFormSelect(value)} onChange={this.handleChangeForm} />
+                            <Form.Select
+                                key={param}
+                                name={"Config" + position + "." + param + "." + widgetKey}
+                                label={param}
+                                defaultValue={value[0]}
+                                options={this.generateFormSelect(value)}
+                                onChange={this.handleChangeForm}
+                            />
                         )
                     }
                 } else {
                     if (this.state.config.DashboardConfig[position][widgetKey] !== undefined) {
+                        let name = "Config" + position + "." + param + "." + widgetKey
                         formField.push(
-                            <Form.Input label={param} defaultValue={this.state.config.DashboardConfig[position][widgetKey][param]} key={param} name={"Config" + position + "." + param + "." + widgetKey} onChange={this.handleChangeForm} />
+                            <Form.Input
+                                label={param}
+                                value={this.state.config.DashboardConfig[position][widgetKey][param]}
+                                key={param}
+                                name={name}
+                                onChange={this.handleChangeForm}
+                                onFocus={() => this.setActiveInput(name)}
+                            />
                         );
                     } else {
                         //Use default config
                         formField.push(
-                            <Form.Input label={param} defaultValue={value} key={param} name={"Config" + position + "." + param + "." + widgetKey} onChange={this.handleChangeForm} />
+                            <Form.Input
+                                label={param}
+                                value={value}
+                                key={param}
+                                name={"Config" + position + "." + param + "." + widgetKey}
+                                onChange={this.handleChangeForm}
+                                onFocus={() => this.setActiveInput("Config" + position + "." + param + "." + widgetKey)}
+                            />
                         );
                     }
                 }
@@ -202,7 +290,7 @@ class AdminPage extends React.Component {
                     </Grid>
                     <br />
                     <Button.Group floated='right'>
-                        <Button>Annuler</Button>
+                        <Button type='reset' onClick={() => window.location.reload}>Annuler</Button>
                         <Button.Or text='ou' />
                         <Button positive type='submit' onClick={this.handleSave}>Valider</Button>
                     </Button.Group>
@@ -211,17 +299,35 @@ class AdminPage extends React.Component {
         }
     }
 
+
+    onKeyPress = button => {
+        if (button === "{shift}" || button === "{lock}") this.handleShift();
+    };
+
     render() {
         return (
             <div>
-                <Button icon labelPosition='left' fluid as={Link} to="/dashboard">
-                    <Icon name="arrow left" />
-                    Retour
-                </Button>
                 <Container>
+                    <Button icon labelPosition='left' fluid as={Link} to="/dashboard">
+                        <Icon name="arrow left" />
+                        Retour
+                    </Button>
+                    <div className={`${!this.state.keyboardOpen ? "hidden" : ""}`}>
+                        <Keyboard
+                            keyboardRef={r => (this.keyboard = r)}
+                            onChange={e => this.onChange(e)}
+                            layout={layout}
+                            layoutName={this.state.layoutName}
+                            onKeyPress={this.onKeyPress}
+                        />
+                        <Button onClick={this.showKeyboard} floated='right'>
+                            Fermer le clavier
+                        </Button>
+                    </div>
                     <Header as='h1'>Admin Page</Header>
                     {this.renderFormPosition()}
                 </Container>
+
             </div>
         );
     }

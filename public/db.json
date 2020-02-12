@@ -2,7 +2,7 @@
     "DashboardConfig": {
         "TopLeft": {
             "Météo": {
-                "Localisation": "Cesson-Sevigne",
+                "Localisation": "Cesson-SEVIGNE",
                 "Temperature": "Fahrenheit"
             }
         },
