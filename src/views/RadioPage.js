@@ -1,6 +1,6 @@
 import React from "react";
-import {Button, Container, Header, Icon} from "semantic-ui-react";
-import {Link} from "react-router-dom";
+import { Button, Container, Header, Icon, Grid, Image } from "semantic-ui-react";
+import { Link } from "react-router-dom";
 import Axios from "axios";
 import AudioPlayer from "react-h5-audio-player";
 import '../assets/css/player.scss';
@@ -9,7 +9,7 @@ class RadioPage extends React.Component {
 
     constructor(props) {
         super(props);
-        this.state = {seconds: 0};
+        this.state = { seconds: 0 };
     }
 
     tick() {
@@ -23,20 +23,17 @@ class RadioPage extends React.Component {
     }
 
     componentDidMount() {
-        Axios.get("config.json")
+        Axios.get("widgetConfig.json")
             .then(res => {
                 const config = res.data;
-                const source = config.WidgetList.Radio.WidgetConfig.Source;
+                console.log(config)
+                const source = config.Radio.Source;
                 let options = Object.entries(source).map((key, i) => {
                     if (key[1].Active !== true) return true;
                     return (
-                        <div className="item">
-                            <img className="ui avatar image" src={key[1].Img} alt=""/>
-                            <div className="content">
-                                <div className="header"><a
-                                    onClick={() => this.createMusicPlayer(key[1].Source)}>{key[1].Titre}</a></div>
-                            </div>
-                        </div>
+                        <Grid.Column>
+                            <Image style={{ "cursor": "pointer"}} circular size='small' src={key[1].Img} onClick={() => this.createMusicPlayer(key[1].Source)} />
+                        </Grid.Column>
                     );
                 });
 
@@ -65,7 +62,7 @@ class RadioPage extends React.Component {
         return (
             <div>
                 <Button icon labelPosition='left' fluid as={Link} to="/">
-                    <Icon name="arrow left"/>
+                    <Icon name="arrow left" />
                     Retour
                 </Button>
                 <Container>
@@ -73,19 +70,22 @@ class RadioPage extends React.Component {
                         <div className="ui grid">
                             <div className="four column row">
                                 <div className="left floated column">Radio page</div>
-                                <div className="right floated column" style={{textAlign:"right"}}>{hour_val}</div>
+                                <div className="right floated column" style={{ textAlign: "right" }}>{hour_val}</div>
                             </div>
                         </div>
                     </Header>
                     <div className="ui container">
-                        <h4 className="ui horizontal divider header"><i className="music icon"/>Web Radio</h4>
+                        <h4 className="ui horizontal divider header"><i className="music icon" />Web Radio</h4>
 
-                        <div className="ui massive horizontal divided list">
-                            {this.state.listRadio}
-                        </div>
+                        <Grid columns={4}>
+                            <Grid.Row >
+                                {this.state.listRadio}
+                            </Grid.Row>
+                        </Grid>
+
                         <div id="radioPlayer">
                             <AudioPlayer autoPlay src={this.state.srcRadio}
-                                         onPlay={e => console.log("onPlay")}/>
+                                onPlay={e => console.log("onPlay")} />
                         </div>
                     </div>
                 </Container>

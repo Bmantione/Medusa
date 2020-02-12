@@ -22,8 +22,8 @@ export default function RenderComponent(component) {
             return <News Source={component.News.Source} NewsNumber={component.News["News à afficher"]} />;
         case 'Radio':
             return <Radio Source={component.Radio.Source} />;
-        case 'Timer':
-            return <Timer Timer={component.Timer.Times} />;
+        /*case 'Timer':
+            return <Timer Timer={component.Timer.Times} />;*/
         default:
             return console.log("No component found")
     }
