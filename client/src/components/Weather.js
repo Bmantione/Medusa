@@ -1,7 +1,7 @@
 import Axios from "axios";
 import React from "react";
 import { Message } from "semantic-ui-react";
-import GetIcon from "../service/iconService.js.js"
+import GetIcon from "../service/iconService.js"
 import 'weathericons/css/weather-icons.css';
 import 'weathericons/css/weather-icons-wind.css';
 

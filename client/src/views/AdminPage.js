@@ -1,11 +1,8 @@
 import Axios from 'axios';
 import React from 'react';
 import { Link } from 'react-router-dom';
-import Keyboard from "react-simple-keyboard";
 import { Button, Container, Divider, Form, Grid, Header, Icon, Message } from 'semantic-ui-react';
 import './adminPage.views.css';
-import layout from "simple-keyboard-layouts/build/layouts/french";
-import "react-simple-keyboard/build/css/index.css";
 
 class AdminPage extends React.Component {
     constructor(props) {
