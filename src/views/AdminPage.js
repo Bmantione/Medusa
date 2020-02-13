@@ -21,10 +21,6 @@ class AdminPage extends React.Component {
             ConfigTopRight: {},
             ConfigBottomLeft: {},
             ConfigBottomRight: {},
-            keyboardOpen: false,
-            inputName: "",
-            keyboardInput: "",
-            layoutName: ""
         };
     }
 
@@ -75,9 +71,7 @@ class AdminPage extends React.Component {
         if (Object.keys(this.state[stateKey])[0] === widgetKey) {
             config[widgetKey][nameKey] = value
             this.setState(
-                { [stateKey]: config }, () => {
-                    this.keyboard.setInput(value);
-                }
+                { [stateKey]: config }
             )
         } else {
             let config = Object.assign({}, this.state.WidgetList[widgetKey])
@@ -101,57 +95,6 @@ class AdminPage extends React.Component {
             })
         })
         return options
-    }
-
-    setActiveInput = (inputName) => {
-        this.setState(
-            {
-                inputName: inputName,
-                keyboardOpen: true
-            },
-            () => {
-                console.log("Active input", inputName);
-            }
-        );
-    };
-
-    onChange = (value) => {
-        const name = this.state.inputName;
-
-        const nameSplited = name.split(".");
-        const stateKey = nameSplited[0];
-        const nameKey = nameSplited[1];
-        const widgetKey = nameSplited[2];
-
-        let config = Object.assign({}, this.state[stateKey])
-        let prevStateValue = this.state[stateKey][widgetKey][nameKey]
-
-        if (Object.keys(this.state[stateKey])[0] === widgetKey) {
-            config[widgetKey][nameKey] = value
-            this.setState(
-                { [stateKey]: config }
-            )
-        } else {
-            let config = Object.assign({}, this.state.WidgetList[widgetKey])
-            config = {
-                [widgetKey]: config
-            }
-            this.setState(
-                { [stateKey]: config }
-            )
-        }
-    };
-
-    handleShift = () => {
-        const layoutName = this.state.layoutName;
-
-        this.setState({
-            layoutName: layoutName === "default" ? "shift" : "default"
-        });
-    };
-
-    showKeyboard = () => {
-        this.setState({ keyboardOpen: false })
     }
 
     generateForm = (configAvailable, widgetKey, position) => {
@@ -190,11 +133,10 @@ class AdminPage extends React.Component {
                         formField.push(
                             <Form.Input
                                 label={param}
-                                value={this.state.config.DashboardConfig[position][widgetKey][param]}
+                                defaultValue={this.state.config.DashboardConfig[position][widgetKey][param]}
                                 key={param}
                                 name={name}
                                 onChange={this.handleChangeForm}
-                                onFocus={() => this.setActiveInput(name)}
                             />
                         );
                     } else {
@@ -202,11 +144,10 @@ class AdminPage extends React.Component {
                         formField.push(
                             <Form.Input
                                 label={param}
-                                value={value}
+                                defaultValue={value}
                                 key={param}
                                 name={"Config" + position + "." + param + "." + widgetKey}
                                 onChange={this.handleChangeForm}
-                                onFocus={() => this.setActiveInput("Config" + position + "." + param + "." + widgetKey)}
                             />
                         );
                     }
@@ -299,11 +240,6 @@ class AdminPage extends React.Component {
         }
     }
 
-
-    onKeyPress = button => {
-        if (button === "{shift}" || button === "{lock}") this.handleShift();
-    };
-
     render() {
         return (
             <div>
@@ -312,18 +248,6 @@ class AdminPage extends React.Component {
                         <Icon name="arrow left" />
                         Retour
                     </Button>
-                    <div className={`${!this.state.keyboardOpen ? "hidden" : ""}`}>
-                        <Keyboard
-                            keyboardRef={r => (this.keyboard = r)}
-                            onChange={e => this.onChange(e)}
-                            layout={layout}
-                            layoutName={this.state.layoutName}
-                            onKeyPress={this.onKeyPress}
-                        />
-                        <Button onClick={this.showKeyboard} floated='right'>
-                            Fermer le clavier
-                        </Button>
-                    </div>
                     <Header as='h1'>Admin Page</Header>
                     {this.renderFormPosition()}
                 </Container>
