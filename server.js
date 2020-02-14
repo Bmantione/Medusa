@@ -11,7 +11,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 app.post('/api/save', (req, res) => {
     const content = JSON.stringify(req.body, null, 4);
-    fs.writeFileSync('./public/db.json', content);
+    fs.writeFileSync('./client/public/db.json', content);
 });
 
 if (process.env.NODE_ENV === 'production') {

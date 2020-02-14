@@ -66,6 +66,7 @@ class Weather extends React.Component {
     }
 
     componentDidMount() {
+        this.callWeather();
         setInterval(this.callWeather, 3600000)
     }
 
