@@ -3,7 +3,7 @@
         "TopLeft": {
             "Météo": {
                 "Localisation": "",
-                "Temperature": "Fahrenheit",
+                "Temperature": "Celsius",
                 "ApiKey": ""
             }
         },
