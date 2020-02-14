@@ -3,7 +3,8 @@
         "TopLeft": {
             "Météo": {
                 "Localisation": "Cesson-SEVIGNE",
-                "Temperature": "Fahrenheit"
+                "Temperature": "Fahrenheit",
+                "ApiKey": "c28d3767fc2c54313f3f17efd55c83f8"
             }
         },
         "TopRight": {

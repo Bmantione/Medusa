@@ -11,6 +11,7 @@ export default function RenderComponent(component) {
             return <Weather
                 Location={component["Météo"].Localisation}
                 Temperature={component["Météo"].Temperature}
+                ApiKey={component["Météo"].ApiKey}
             />;
         case 'Horloge':
             return <Clock

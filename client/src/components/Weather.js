@@ -30,9 +30,8 @@ class Weather extends React.Component {
         }
     }
 
-    componentDidMount() {
-        //https://api.openweathermap.org/data/2.5/weather?q=rennes&APPID=fbea750d7d1154542724db10d81cfd9e&lang=fr
-        Axios.get("https://api.openweathermap.org/data/2.5/weather?q=" + this.props.Location + "&APPID=fbea750d7d1154542724db10d81cfd9e&units=metric")
+    callWeather = () => {
+        Axios.get("https://api.openweathermap.org/data/2.5/weather?q=" + this.props.Location + "&APPID=" + this.props.ApiKey + "&units=metric")
             .then((response) => {
                 var result = response.data
                 if (response.status === 200) {
@@ -64,6 +63,10 @@ class Weather extends React.Component {
                     })
                 }
             });
+    }
+
+    componentDidMount() {
+        setInterval(this.callWeather, 3600000)
     }
 
     // TOUTES LES FONCTIONS UTILES DANS LE COMPOSANT
@@ -107,7 +110,7 @@ class Weather extends React.Component {
                         <div><span className={"font-massive"}><i className='wi wi-thermometer' /></span></div><br />
                         <span className={"font-large"}>
                             {this.state.temp.actuel} <i className={'wi ' + GetIcon(this.props.Temperature)} />&nbsp;
-                            (<i className='wi wi-direction-down' /> {this.state.temp.min} <i className={'wi ' + GetIcon(this.props.Temperature)} /> à 
+                            (<i className='wi wi-direction-down' /> {this.state.temp.min} <i className={'wi ' + GetIcon(this.props.Temperature)} /> à
                             <i className='wi wi-direction-up' /> {this.state.temp.max} <i className={'wi ' + GetIcon(this.props.Temperature)} />)
                             </span>
                     </div>
