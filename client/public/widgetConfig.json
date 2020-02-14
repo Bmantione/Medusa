@@ -1,0 +1,81 @@
+{
+    "Météo": {
+        "Localisation": "Rennes",
+        "Temperature": [
+            "Celsius",
+            "Kelvin",
+            "Fahrenheit"
+        ],
+        "ApiKey": "https://home.openweathermap.org/users/sign_up"
+    },
+    "Horloge": {
+        "Time Zone": "Europe/Paris",
+        "Format Heure": [
+            "12h",
+            "24h"
+        ],
+        "Format Date": "dddd DD  MMMM YYYY"
+    },
+    "News": {
+        "Source": "https://newsapi.org/v2/top-headlines?sources=google-news-fr&apiKey=7485e20aca044c7fbd9d9694f47bbadc",
+        "News à afficher": "-1"
+    },
+    "Radio": {
+        "Source": [
+            {
+                "Titre": "Fun Radio France",
+                "Source": "http://streaming.radio.funradio.fr/fun-1-48-192",
+                "Img": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR6JewmjjjiVazFpAw5gMi51ptPtTrA2rbhtQoNc_P9wMyqVa9b",
+                "Active": true
+            },
+            {
+                "Titre": "Hit West",
+                "Source": "http://broadcast.infomaniak.ch/hitwest-high.mp3",
+                "Img": "https://ecouter.lesindesradios.fr/logos/orange36.png",
+                "Active": true
+            },
+            {
+                "Titre": "Skyrock",
+                "Source": "http://www.skyrock.fm/stream.php/tunein16_128mp3.mp3",
+                "Img": "http://db.radioline.fr/pictures/radio_f386ec15811fab1ebefb3289620ba9b9/logo200.jpg?size=200",
+                "Active": true
+            },
+            {
+                "Titre": "Europe 1",
+                "Source": "http://mp3lg4.tdf-cdn.com/9240/lag_180945.mp3",
+                "Img": "http://db.radioline.fr/pictures/radio_fa64fea9b6ccd92e058ced3fa41f58f5/logo200.jpg?size=200",
+                "Active": true
+            },
+            {
+                "Titre": "RFM",
+                "Source": "http://rfm-live-mp3-128.scdn.arkena.com/rfm.mp3",
+                "Img": "https://upload.wikimedia.org/wikipedia/fr/thumb/1/19/RFM_logo_2011.png/220px-RFM_logo_2011.png",
+                "Active": true
+            },
+            {
+                "Titre": "Virgin Radio",
+                "Source": "http://vr-live-mp3-128.scdn.arkena.com/virginradio.mp3",
+                "Img": "https://www.lalettre.pro/photo/art/grande/9835403-15900830.jpg?v=1468337476",
+                "Active": true
+            },
+            {
+                "Titre": "BFM Business",
+                "Source": "http://chai5she.cdn.dvmr.fr/bfmbusiness",
+                "Img": "https://upload.wikimedia.org/wikipedia/fr/thumb/f/fb/BFM_Business_logo_2016.svg/1024px-BFM_Business_logo_2016.svg.png",
+                "Active": true
+            },
+            {
+                "Titre": "NRJ France",
+                "Source": "http://cdn.nrjaudio.fm/audio1/fr/30001/mp3_128.mp3?origine=fluxradios",
+                "Img": "https://upload.wikimedia.org/wikipedia/fr/thumb/c/ca/Nrj2014.png/220px-Nrj2014.png",
+                "Active": true
+            },
+            {
+                "Titre": "Mouv",
+                "Source": "http://direct.mouv.fr/live/mouv-midfi.mp3",
+                "Img": "https://upload.wikimedia.org/wikipedia/fr/5/5d/Mouv.svg",
+                "Active": true
+            }
+        ]
+    }
+}

@@ -1,6 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const fs = require('fs');
+const path = require('path');
 
 const app = express();
 const port = process.env.PORT || 5000;
@@ -10,7 +11,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 app.post('/api/save', (req, res) => {
     const content = JSON.stringify(req.body, null, 4);
-    fs.writeFileSync('./public/db.json', content);
+    fs.writeFileSync('./client/public/db.json', content);
 });
 
 if (process.env.NODE_ENV === 'production') {
